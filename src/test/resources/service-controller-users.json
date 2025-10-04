@@ -1,0 +1,10 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/users/.*"
+  },
+  "response": {
+    "status": 200,
+    "body": "User ID: {{request.path.[1]}}"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "request" : {
+    "urlPathPattern" : "/hello",
+    "method" : "GET",
+    "queryParameters": {
+      "name" : {
+        "matches": ".*"
+      }
+    }
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "Hello, {{request.query.name}}!!"
+  }
+}

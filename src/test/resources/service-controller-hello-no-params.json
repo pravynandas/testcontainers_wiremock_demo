@@ -1,0 +1,10 @@
+{
+  "request" : {
+    "urlPathPattern" : "/hello",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "Hello, Unknown!!"
+  }
+}

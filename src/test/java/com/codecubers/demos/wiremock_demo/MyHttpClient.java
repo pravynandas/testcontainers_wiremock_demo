@@ -20,24 +20,25 @@ public class MyHttpClient {
     }
 
     static HttpRequest postRequest(String url, Path filePath) throws FileNotFoundException {
-        return HttpRequest.newBuilder().uri(URI.create(WiremockDemoApplicationTests.container.getUrl(url))).POST(HttpRequest.BodyPublishers.ofFile(filePath)).build();
+        return HttpRequest.newBuilder().uri(URI.create(url))
+                .POST(HttpRequest.BodyPublishers.ofFile(filePath)).build();
     }
 
 
-    static void postAdmin(String method, Path filePath) throws IOException, URISyntaxException, InterruptedException {
-        final HttpRequest request = postRequest("/__admin/" + method, filePath);
+    static void postAdmin(String url, String method, Path filePath) throws IOException, URISyntaxException, InterruptedException {
+        final HttpRequest request = postRequest(url + "__admin/" + method, filePath);
 
         final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         assertThat(response.statusCode()).isEqualTo(201);
     }
 
-    static void postMapping(Path mappingsPath) throws IOException, URISyntaxException, InterruptedException {
-        postAdmin("mappings", mappingsPath);
+    static void postMapping(String url, Path mappingsPath) throws IOException, URISyntaxException, InterruptedException {
+        postAdmin(url, "mappings", mappingsPath);
     }
 
-    static HttpResponse<String> getResponse(String path) throws IOException, InterruptedException {
-        final HttpRequest request = getRequest(WiremockDemoApplicationTests.container.getUrl(path));
+    static HttpResponse<String> getResponse(String url) throws IOException, InterruptedException {
+        final HttpRequest request = getRequest(url);
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 }
